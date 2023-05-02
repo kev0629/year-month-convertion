@@ -41,7 +41,7 @@ jobs:
           node-version: 'lts/*'
           cache: 'npm'
       - name: Install pnpm
-      -run: npm install -g pnpm # Set this to npm, yarn or pnpm.
+      - run: npm i pnpm -g # Set this to npm, yarn or pnpm.
 
       - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
