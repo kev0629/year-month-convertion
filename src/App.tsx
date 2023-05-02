@@ -1,54 +1,46 @@
 import { useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-  const [years, setYears] = useState<number | ''>('');
-  const [months, setMonths] = useState<number | ''>('');
+  const [birthdate, setBirthdate] = useState<string>("");
+  const [years, setYears] = useState<number | null>(null);
+  const [months, setMonths] = useState<number | null>(null);
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const handleBirthdateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const birthdateValue = event.target.value;
+    setBirthdate(birthdateValue);
 
-  const handleYearsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const yearsValue = event.target.value;
-    setYears(yearsValue !== '' ? parseFloat(yearsValue) : '');
-    setMonths(yearsValue !== '' ? parseFloat(yearsValue) * 12 : '');
-  };
+    const today = new Date();
+    const birthDate = new Date(birthdateValue);
 
-  const handleMonthsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const monthsValue = event.target.value;
-    setMonths(monthsValue !== '' ? parseFloat(monthsValue) : '');
-    setYears(monthsValue !== '' ? Math.floor(parseFloat(monthsValue) / 12) : '');
+    let yearsDiff = today.getFullYear() - birthDate.getFullYear();
+    let monthsDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthsDiff < 0 || (monthsDiff === 0 && today.getDate() < birthDate.getDate())) {
+      yearsDiff--;
+      monthsDiff += 12;
+    }
+
+    setYears(yearsDiff);
+    setMonths(monthsDiff);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Conversion des années en mois</h1>
-      <div className="flex items-center space-x-4">
-        <label className="text-lg font-semibold">
-          Années:
-          <input
-            type="number"
-            step="0.  1"
-            className="px-3 py-2 border border-gray-400 rounded-lg w-32"
-            value={years}
-            onChange={handleYearsChange}
-          />
+    <div data-tauri-drag-region className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <h1 className="text-2xl font-bold mb-6">Age en années et mois</h1>
+      <input className="border border-gray-400 rounded-lg w-fit px-5" type="date" placeholder="dd-mm-yyyy" onChange={handleBirthdateChange} />
+      <div className="flex items-center space-x-4 my-5">
+        <label className="text-lg text-center font-semibold">
+          Années
+          <div className="px-3 py-2 border border-gray-400 rounded-lg w-32">
+            {years !== null ? years : ""}
+          </div>
         </label>
-        <span className="text-lg font-semibold">=</span>
-        <label className="text-lg font-semibold">
-          Mois:
-          <input
-            type="number"
-            step="0.1"
-            className="px-3 py-2 border border-gray-400 rounded-lg w-32"
-            value={months}
-            onChange={handleMonthsChange}
-          />
+        <label className="text-lg text-center font-semibold">
+          Mois
+          <div className="px-3 py-2 border border-gray-400 rounded-lg w-32">
+            {months !== null ? months : ""}
+          </div>
         </label>
       </div>
     </div>

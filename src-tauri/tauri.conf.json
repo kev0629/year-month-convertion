@@ -16,6 +16,17 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
       }
     },
     "bundle": {
@@ -27,7 +38,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.tauri.convertionage",
       "targets": "all"
     },
     "security": {
@@ -40,10 +51,16 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "convertion-age",
-        "width": 800,
-        "height": 600
-      }
-    ]
+        "title": "test",
+        "width": 500,
+        "height": 300,
+        "minWidth":500,
+        "minHeight":300,
+        "transparent":true,
+        "titleBarStyle":"Overlay",
+        "hiddenTitle":true,
+        "decorations":true      }
+    ],
+    "macOSPrivateApi":true
   }
 }
