@@ -51,7 +51,7 @@ jobs:
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
 
-        env:
+        env :
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
