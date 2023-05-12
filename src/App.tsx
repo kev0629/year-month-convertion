@@ -26,9 +26,13 @@ function App() {
   };
 
   return (
-    <div data-tauri-drag-region className="flex flex-col items-center justify-center min-h-screen bg-white">
+    <>
+    <div data-tauri-drag-region className="h-5"></div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
       <h1 className="text-2xl font-bold mb-6">Age en années et mois</h1>
-      <input className="border border-gray-400 rounded-lg w-fit px-5" type="date" placeholder="dd-mm-yyyy" onChange={handleBirthdateChange} />
+      <div>
+        <input className="border border-gray-400 rounded-lg w-fit px-5" type="date" placeholder="dd-mm-yyyy" onChange={handleBirthdateChange} />
+      </div>
       <div className="flex items-center space-x-4 my-5">
         <label className="text-lg text-center font-semibold">
           Années
@@ -44,6 +48,7 @@ function App() {
         </label>
       </div>
     </div>
+    </>
   );
 }
 
